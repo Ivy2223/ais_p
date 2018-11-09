@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}查询{% endblock %}
+{% block css %}<link href="{% static 'CSS/research.css' %}" rel="stylesheet"/>{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="col-md-4 col-md-offset-4">
+          <form class='form-research' action="/search/" method="post"> {% csrf_token %}
+              <h2 class="text-center">查询</h2>
+              <div class="form-group">
+                      <label for="searchif">查询条件</label>
+
+              <label class="radio-inline">
+             <input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="option1" onclick="goods_type.disabled='disabled';goods_type.value='';IMO.disabled=''" checked> 按船只查询
+              </label>
+             <label class="radio-inline">
+             <input type="radio" name="optionsRadiosinline" id="optionsRadios4"  value="option2"  onclick="IMO.disabled='disabled';IMO.value='';goods_type.disabled='';"> 按货物查询查询
+              </label>
+
+              </div>
+              <div class="form-group">
+                <label for="IMO">船只IMO</label>
+                <input type="text" name='IMO' class="form-control" id="IMO" placeholder="IMO" autofocus required>
+              </div>
+              <div class="form-group">
+                   <label for="goods_type">货物类型</label>
+                  <select class="form-control"  name="goods_type"  id="goods_type" disabled="disabled" >
+                     <option  value="1">煤</option>
+                     <option value="2">钢</option>
+                      <option value="3">石油</option>
+                       <option value="4">天然气</option>
+                    </select>
+              </div>
+             <div class="form-group">
+                <label for="SD">开始时间</label>
+                <input type="date" name='SD' class="form-control" id="SD" placeholder="" required>
+              </div>
+               <div class="form-group">
+                <label for="ED">截至时间</label>
+                <input type="date" name='ED' class="form-control" id="ED" placeholder="" required>
+              </div>
+              <button type="reset" class="btn btn-default pull-left">重置</button>
+              <button type="submit" class="btn btn-primary pull-right">提交</button>
+          </form>
+        </div>
+    </div> <!-- /container -->
+{% endblock %}
