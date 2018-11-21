@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from .models import RoutePartial
 from .models import MainRouteV1
+from .models import RouteVersion1
 from .models import SailPartial
-from .models import Port
+from .models import PortVersion1
 import json
 from django.shortcuts import HttpResponseRedirect,Http404,HttpResponse,render_to_response
 from django.core import serializers
@@ -33,7 +34,7 @@ def search(request):
         # j = json.dumps(list(q), default=lambda obj: obj.__dict__)
         # shiproute = eval(j)
         # print(q)
-        port = Port.objects.all().values()
+        port = PortVersion1.objects.all().values()
         pj = json.dumps(list(port), default=lambda obj: obj.__dict__)
         portdict = eval(pj)
 
@@ -41,14 +42,14 @@ def search(request):
 
 
 def result(request):
-    p = RoutePartial.objects.all().values()
+    p = MainRouteV1.objects.filter(sea_flag=1).values()
+    # p = RoutePartial.objects.all().values()
     j = json.dumps(list(p), default=lambda obj: obj.__dict__)
     dict = eval(j)
-
-    port = Port.objects.all().values()
+    port = PortVersion1.objects.all().values()
     pj = json.dumps(list(port), default=lambda obj: obj.__dict__)
     portdict = eval(pj)
-    print(dict)
+    # print(dict)
     return render(request, 'pre/result.html', {'dict': dict, 'portdict': portdict})
     # return HttpResponse(names)
     # return render_to_response("pre/result.html", locals())
