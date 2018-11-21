@@ -42,7 +42,7 @@ def search(request):
 
 
 def result(request):
-    p = MainRouteV1.objects.filter(sea_flag=1).values()
+    p = MainRouteV1.objects.filter(routeid=647, sea_flag=1).values()
     # p = RoutePartial.objects.all().values()
     j = json.dumps(list(p), default=lambda obj: obj.__dict__)
     dict = eval(j)
